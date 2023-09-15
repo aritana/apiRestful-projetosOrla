@@ -1,13 +1,13 @@
-package com.example.projetosinovadores;
+package com.example.apiRestfulprojetosOrla;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProjetosInovadoresApplication {
+public class ApiRestfulProjetosOrlaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProjetosInovadoresApplication.class, args);
+		SpringApplication.run(ApiRestfulProjetosOrlaApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-package com.example.projetosinovadores;
+package com.example.apiRestfulprojetosOrla;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjetosInovadoresApplicationTests {
+class ApiRestfulProjetosOrlaApplicationTests {
 
 	@Test
 	void contextLoads() {
