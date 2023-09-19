@@ -16,7 +16,11 @@ public class Projeto {
 
     private String nome;
     private LocalDate  data_criacao;
-
-    @ManyToMany(mappedBy = "projetos")
+    @ManyToMany
+    @JoinTable(
+            name = "projeto_funcionario",
+            joinColumns = @JoinColumn(name = "projeto_id"),
+            inverseJoinColumns = @JoinColumn(name = "funcionario_id")
+    )
     private Set<Funcionario> funcionarios = new HashSet<>();
 }

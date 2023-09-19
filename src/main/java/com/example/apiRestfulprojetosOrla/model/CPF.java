@@ -2,8 +2,8 @@ package com.example.apiRestfulprojetosOrla.model;
 
 import lombok.Getter;
 
+@Getter
 public class CPF {
-    @Getter
     private String number;
 
     public CPF(String value) {
