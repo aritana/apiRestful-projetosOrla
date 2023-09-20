@@ -14,7 +14,7 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String address;
+    private String endereco;
 
     @OneToOne
     @JoinColumn(name = "funcionario_id") // Defines the foreign key column in the address table

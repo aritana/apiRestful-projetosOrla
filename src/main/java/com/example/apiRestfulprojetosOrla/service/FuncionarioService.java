@@ -1,5 +1,7 @@
 package com.example.apiRestfulprojetosOrla.service;
 
+import com.example.apiRestfulprojetosOrla.dto.FuncionarioDto;
+import com.example.apiRestfulprojetosOrla.model.FuncionarioModel;
 import com.example.apiRestfulprojetosOrla.orm.Funcionario;
 import com.example.apiRestfulprojetosOrla.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +21,40 @@ public class FuncionarioService {
         this.repository = repository;
     }
 
-    public Funcionario criarFuncionario(Funcionario funcionario) {
-        return repository.save(funcionario);
+    public FuncionarioDto criarFuncionario(FuncionarioModel funcionarioModel) {
+
+        Funcionario funcionario = repository.save(funcionarioModel.toEntity());
+        FuncionarioDto funcionarioDto = toDto(funcionario);
+        return  funcionarioDto;
     }
 
-    public Funcionario encontrarFuncionarioPorId(Long id){
-        return repository.findById(id).orElseThrow(()-> new NoSuchElementException("Funcionario não encontrado"));
+    public FuncionarioDto encontrarFuncionarioPorId(Long id) {
+        Funcionario funcionario =  repository.findById(id).orElseThrow(() -> new NoSuchElementException("Funcionario não encontrado"));
+        FuncionarioDto funcionarioDto = toDto(funcionario);
+        return  funcionarioDto;
     }
 
-    public List<Funcionario> listarTodosFuncionarios(){
-        Iterable<Funcionario> funcionariosIterable =  repository.findAll();
-        List<Funcionario> funcionarios = new ArrayList<>();
-        funcionariosIterable.forEach(funcionarios::add);
+    public List<FuncionarioDto> listarTodosFuncionarios() {
+        Iterable<Funcionario> funcionariosIterable = repository.findAll();
+        List<FuncionarioDto> funcionarios = new ArrayList<>();
+
+        for (Funcionario funcionario : funcionariosIterable){
+            funcionarios.add(toDto(funcionario));
+        }
         return funcionarios;
     }
 
-    public void deletarFuncionario(Long id){
+    public void deletarFuncionario(Long id) {
         repository.deleteById(id);
+    }
+
+    public FuncionarioDto toDto(Funcionario funcionario){
+        FuncionarioDto funcionarioDto = FuncionarioDto.builder()
+                .nome(funcionario.getNome())
+                .cpf(funcionario.getCpf().getNumber())
+                .email(funcionario.getEmail().getEndereco())
+                .salario(funcionario.getSalario().toString())
+                .build();
+        return  funcionarioDto;
     }
 }
