@@ -15,8 +15,6 @@ public class CPF {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String number;
-
-    @OneToOne
-    @JoinColumn(name = "funcionario_id")
+    @OneToOne(mappedBy = "cpf")
     private Funcionario funcionario;
 }

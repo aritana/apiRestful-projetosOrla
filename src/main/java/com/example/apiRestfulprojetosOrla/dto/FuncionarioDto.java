@@ -22,4 +22,5 @@ public class FuncionarioDto {
     @NotEmpty
     @NotNull
     private String salario;
+    private String id;
 }

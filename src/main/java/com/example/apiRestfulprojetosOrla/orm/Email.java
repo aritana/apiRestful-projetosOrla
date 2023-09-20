@@ -15,8 +15,5 @@ public class Email {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String endereco;
-
-    @OneToOne
-    @JoinColumn(name = "funcionario_id")
-    private Funcionario funcionario;
-}
+    @OneToOne(mappedBy = "email")
+    private Funcionario funcionario;}

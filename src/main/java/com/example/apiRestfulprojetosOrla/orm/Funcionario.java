@@ -20,13 +20,14 @@ public class Funcionario {
     private Long id;
     private String nome;
 
-    @OneToOne(mappedBy = "funcionario", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "cpf_id", referencedColumnName = "id")
     private CPF cpf;
 
-    @OneToOne(mappedBy = "funcionario", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "email_id", referencedColumnName = "id")
     private Email email;
     private BigDecimal salario;
 
     @ManyToMany(mappedBy = "funcionarios")
-    private Set<Projeto> projetos = new HashSet<>();
-}
+    private Set<Projeto> projetos = new HashSet<>();}
