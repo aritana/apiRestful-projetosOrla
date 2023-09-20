@@ -11,8 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ProjetoDto {
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "O campo Nome não pode ser vazio.")
+    @NotNull(message = "O campo Nome não pode ser nulo.")
     private String nome;
     private String data_criacao;
     private String id;

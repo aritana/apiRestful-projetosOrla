@@ -10,17 +10,17 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class FuncionarioDto {
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "O campo Nome não pode ser vazio.")
+    @NotNull(message = "O campo nome não pode ser nulo.")
     private String nome;
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "O campo CPF não pode ser vazio.")
+    @NotNull(message = "O campo CPF não pode ser nulo.")
     private String cpf;
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "O campo E-mail não pode ser vazio.")
+    @NotNull(message = "O campo E-mail não pode ser nulo.")
     private String email;
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "O campo Salário não pode ser vazio.")
+    @NotNull(message = "O campo Salário não pode ser nulo.")
     private String salario;
     private String id;
 }
