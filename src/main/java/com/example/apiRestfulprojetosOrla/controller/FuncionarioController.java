@@ -9,6 +9,8 @@ import io.swagger.annotations.Api;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @Api(value = "API para gerenciar projetos")
 @RestController
-@RequestMapping("/funcionarios")
+@RequestMapping("/funcionario")
 public class FuncionarioController {
 
     private final FuncionarioService funcionarioService;
@@ -28,8 +30,7 @@ public class FuncionarioController {
 
     @PostMapping
     @Transactional
-    public FuncionarioDto criarFuncionario(@RequestBody @Valid FuncionarioDto funcionarioDto) {
-
+    public ResponseEntity<FuncionarioDto> criarFuncionario(@RequestBody @Valid FuncionarioDto funcionarioDto) {
         FuncionarioModel funcionarioModel = FuncionarioModel.builder()
                 .nome(funcionarioDto.getNome())
                 .email(new EmailModel(funcionarioDto.getEmail()))
@@ -37,17 +38,20 @@ public class FuncionarioController {
                 .salario(new BigDecimal(funcionarioDto.getSalario()))
                 .build();
 
-        return funcionarioService.criarFuncionario(funcionarioModel);
+        FuncionarioDto funcionario = funcionarioService.criarFuncionario(funcionarioModel);
+        return new ResponseEntity(funcionario, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public FuncionarioDto encontrarFuncionarioPorId(@PathVariable Long id) {
-        return funcionarioService.encontrarFuncionarioPorId(id);
+    public ResponseEntity<FuncionarioDto> encontrarFuncionarioPorId(@PathVariable Long id) {
+        FuncionarioDto funcionario = funcionarioService.encontrarFuncionarioPorId(id);
+        return new ResponseEntity(funcionario, HttpStatus.OK);
     }
 
     @GetMapping
-    public List<FuncionarioDto> listarTodosFuncionarios() {
-        return funcionarioService.listarTodosFuncionarios();
+    public ResponseEntity<List<FuncionarioDto>> listarTodosFuncionarios() {
+        List<FuncionarioDto> funcionariosDto = funcionarioService.listarTodosFuncionarios();
+        return new ResponseEntity<>(funcionariosDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

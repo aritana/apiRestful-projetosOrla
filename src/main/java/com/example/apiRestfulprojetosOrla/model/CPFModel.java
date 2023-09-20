@@ -1,7 +1,6 @@
 package com.example.apiRestfulprojetosOrla.model;
 
 import com.example.apiRestfulprojetosOrla.orm.CPF;
-import com.example.apiRestfulprojetosOrla.orm.Funcionario;
 import lombok.Getter;
 
 @Getter

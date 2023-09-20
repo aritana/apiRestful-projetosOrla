@@ -17,6 +17,6 @@ public class CPF {
     private String number;
 
     @OneToOne
-    @JoinColumn(name = "funcionario_id") // Defines the foreign key column in the address table
+    @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
 }

@@ -20,13 +20,13 @@ public class Funcionario {
     private Long id;
     private String nome;
 
-    @OneToOne(mappedBy = "funcionario")
+    @OneToOne(mappedBy = "funcionario", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private CPF cpf;
 
-    @OneToOne(mappedBy = "funcionario")
+    @OneToOne(mappedBy = "funcionario", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private Email email;
     private BigDecimal salario;
 
     @ManyToMany(mappedBy = "funcionarios")
-    private Set<Projeto>projetos = new HashSet<>();
+    private Set<Projeto> projetos = new HashSet<>();
 }

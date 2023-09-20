@@ -17,6 +17,6 @@ public class Email {
     private String endereco;
 
     @OneToOne
-    @JoinColumn(name = "funcionario_id") // Defines the foreign key column in the address table
+    @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
 }
