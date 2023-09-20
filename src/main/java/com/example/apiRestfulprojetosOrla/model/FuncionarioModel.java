@@ -15,10 +15,4 @@ public class FuncionarioModel {
     private CPFModel cpf;
     private EmailModel email;
     private BigDecimal salario;
-    public Funcionario toEntity() {
-        Funcionario funcionario = new Funcionario();
-        funcionario.setNome(this.nome);
-        funcionario.setSalario(this.salario);
-        return funcionario;
-    }
 }

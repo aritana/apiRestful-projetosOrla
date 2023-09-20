@@ -58,8 +58,13 @@ public class FuncionarioService {
         return funcionarios;
     }
 
-    public void deletarFuncionario(Long id) {
-        repository.deleteById(id);
+    public boolean deletarFuncionario(Long id) {
+        FuncionarioDto funcionarioDto = encontrarFuncionarioPorId(id);
+        if(funcionarioDto != null){
+            repository.deleteById(id);
+            return true;
+        }
+        return  false;
     }
 
     public FuncionarioDto toDto(Funcionario funcionario) {

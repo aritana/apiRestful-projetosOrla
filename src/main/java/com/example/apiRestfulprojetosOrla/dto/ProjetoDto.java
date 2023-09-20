@@ -11,7 +11,9 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ProjetoDto {
-    @NotEmpty @NotNull
+    @NotEmpty
+    @NotNull
     private String nome;
     private String data_criacao;
+    private String id;
 }

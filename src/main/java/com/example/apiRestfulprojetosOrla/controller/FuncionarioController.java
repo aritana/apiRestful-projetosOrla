@@ -5,7 +5,6 @@ import com.example.apiRestfulprojetosOrla.model.CPFModel;
 import com.example.apiRestfulprojetosOrla.model.EmailModel;
 import com.example.apiRestfulprojetosOrla.model.FuncionarioModel;
 import com.example.apiRestfulprojetosOrla.service.FuncionarioService;
-import io.swagger.annotations.Api;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Api(value = "API para gerenciar projetos")
 @RestController
 @RequestMapping("/funcionario")
 public class FuncionarioController {
-
     private final FuncionarioService funcionarioService;
-
     @Autowired
     public FuncionarioController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
@@ -55,7 +51,11 @@ public class FuncionarioController {
     }
 
     @DeleteMapping("/{id}")
-    public void deletarFuncionario(@PathVariable Long id) {
-        funcionarioService.deletarFuncionario(id);
+    public ResponseEntity<Void> deletarFuncionario(@PathVariable Long id) {
+        boolean foiDeletadoComSucesso = funcionarioService.deletarFuncionario(id);
+        if(foiDeletadoComSucesso){
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
