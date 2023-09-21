@@ -16,11 +16,11 @@ import java.util.NoSuchElementException;
 @Service
 public class FuncionarioService {
 
-    private final FuncionarioRepository repository;
+    private final FuncionarioRepository repositorio;
 
     @Autowired
-    public FuncionarioService(FuncionarioRepository repository) {
-        this.repository = repository;
+    public FuncionarioService(FuncionarioRepository repositorio) {
+        this.repositorio = repositorio;
     }
 
     public FuncionarioDto criarFuncionario(FuncionarioModel funcionarioModel) {
@@ -36,20 +36,20 @@ public class FuncionarioService {
         funcionario.setCpf(cpf);
         funcionario.setEmail(email);
 
-        Funcionario funcionarioPersistido = repository.save(funcionario);
+        Funcionario funcionarioPersistido = repositorio.save(funcionario);
 
         FuncionarioDto funcionarioDto = toDto(funcionarioPersistido);
         return funcionarioDto;
     }
 
     public FuncionarioDto encontrarFuncionarioPorId(Long id) {
-        Funcionario funcionario = repository.findById(id).orElseThrow(() -> new NoSuchElementException("Funcionario não encontrado"));
+        Funcionario funcionario = repositorio.findById(id).orElseThrow(() -> new NoSuchElementException("Funcionario não encontrado"));
         FuncionarioDto funcionarioDto = toDto(funcionario);
         return funcionarioDto;
     }
 
     public List<FuncionarioDto> listarTodosFuncionarios() {
-        Iterable<Funcionario> funcionariosIterable = repository.findAll();
+        Iterable<Funcionario> funcionariosIterable = repositorio.findAll();
         List<FuncionarioDto> funcionarios = new ArrayList<>();
 
         for (Funcionario funcionario : funcionariosIterable) {
@@ -61,7 +61,7 @@ public class FuncionarioService {
     public boolean deletarFuncionario(Long id) {
         FuncionarioDto funcionarioDto = encontrarFuncionarioPorId(id);
         if(funcionarioDto != null){
-            repository.deleteById(id);
+            repositorio.deleteById(id);
             return true;
         }
         return  false;

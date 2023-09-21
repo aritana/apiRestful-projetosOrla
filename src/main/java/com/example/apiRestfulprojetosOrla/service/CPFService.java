@@ -12,29 +12,29 @@ import java.util.NoSuchElementException;
 @Service
 public class CPFService {
 
-    private CPFRepository repository;
+    private CPFRepository repositorio;
 
     @Autowired
-    public CPFService(CPFRepository repository) {
-        this.repository = repository;
+    public CPFService(CPFRepository repositorio) {
+        this.repositorio = repositorio;
     }
 
     public CPF criarCPF(CPF cpf) {
-        return repository.save(cpf);
+        return repositorio.save(cpf);
     }
 
     public CPF encontrarCPFPorId(Long id){
-        return repository.findById(id).orElseThrow(()-> new NoSuchElementException("CPF não encontrado"));
+        return repositorio.findById(id).orElseThrow(()-> new NoSuchElementException("CPF não encontrado"));
     }
 
     public List<CPF> listarTodosCPFs(){
-        Iterable<CPF> cpfIterable =  repository.findAll();
+        Iterable<CPF> cpfIterable =  repositorio.findAll();
         List<CPF> cpfList = new ArrayList<>();
         cpfIterable.forEach(cpfList::add);
         return cpfList;
     }
 
     public void deletarCPF(Long id){
-        repository.deleteById(id);
+        repositorio.deleteById(id);
     }
 }

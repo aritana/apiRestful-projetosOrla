@@ -16,18 +16,11 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class Projeto {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nome;
     private LocalDate  data_criacao;
-    @ManyToMany
-    @JoinTable(
-            name = "projeto_funcionario",
-            joinColumns = @JoinColumn(name = "projeto_id"),
-            inverseJoinColumns = @JoinColumn(name = "funcionario_id")
-    )
+    @ManyToMany(mappedBy = "projetos")
     private Set<Funcionario> funcionarios = new HashSet<>();
 }

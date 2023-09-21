@@ -23,11 +23,14 @@ public class Funcionario {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "cpf_id", referencedColumnName = "id")
     private CPF cpf;
-
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "email_id", referencedColumnName = "id")
     private Email email;
     private BigDecimal salario;
-
-    @ManyToMany(mappedBy = "funcionarios")
+    @ManyToMany
+    @JoinTable(
+            name = "funcionario_projeto",
+            joinColumns = @JoinColumn(name = "funcionario_id"),
+            inverseJoinColumns = @JoinColumn(name = "projeto_id")
+    )
     private Set<Projeto> projetos = new HashSet<>();}

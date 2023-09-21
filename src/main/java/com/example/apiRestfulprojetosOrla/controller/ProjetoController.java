@@ -1,7 +1,9 @@
 package com.example.apiRestfulprojetosOrla.controller;
 
+import com.example.apiRestfulprojetosOrla.dto.FuncionarioDto;
 import com.example.apiRestfulprojetosOrla.dto.ProjetoDto;
 import com.example.apiRestfulprojetosOrla.model.ProjetoModel;
+import com.example.apiRestfulprojetosOrla.orm.Projeto;
 import com.example.apiRestfulprojetosOrla.service.ProjetoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -26,7 +28,7 @@ public class ProjetoController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<ProjetoDto> criarFuncionario(@RequestBody @Valid ProjetoDto projetoDto) {
+    public ResponseEntity<ProjetoDto> criarProjeto(@RequestBody @Valid ProjetoDto projetoDto) {
         ProjetoModel projetoModel = ProjetoModel.builder()
                 .nome(projetoDto.getNome())
                 .build();
@@ -36,7 +38,7 @@ public class ProjetoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjetoDto> encontrarFuncionarioPorId(@PathVariable Long id) {
+    public ResponseEntity<ProjetoDto> encontrarProjetoPorId(@PathVariable Long id) {
         ProjetoDto projeto = projetoService.encontrarProjetoPorId(id);
         return new ResponseEntity(projeto, HttpStatus.OK);
     }
@@ -54,5 +56,13 @@ public class ProjetoController {
             return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    private ProjetoDto toDto(Projeto projetoPersistido) {
+        ProjetoDto projetoDto = new ProjetoDto();
+        projetoDto.setId(Long.toString(projetoPersistido.getId()));
+        projetoDto.setNome(projetoPersistido.getNome());
+        projetoDto.setData_criacao(projetoPersistido.getData_criacao().toString());
+        return  projetoDto;
     }
 }

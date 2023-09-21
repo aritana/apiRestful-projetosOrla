@@ -12,29 +12,29 @@ import java.util.NoSuchElementException;
 @Service
 public class EmailService {
 
-    private final EmailRepository repository;
+    private final EmailRepository repositorio;
 
     @Autowired
-    public EmailService(EmailRepository repository) {
-        this.repository = repository;
+    public EmailService(EmailRepository repositorio) {
+        this.repositorio = repositorio;
     }
 
     public Email criarEmail(Email email) {
-        return repository.save(email);
+        return repositorio.save(email);
     }
 
     public Email encontrarEmailPorId(Long id){
-        return repository.findById(id).orElseThrow(()-> new NoSuchElementException("E-mail não encontrado"));
+        return repositorio.findById(id).orElseThrow(()-> new NoSuchElementException("E-mail não encontrado"));
     }
 
     public List<Email> listarTodosEmails(){
-        Iterable<Email> emailIterable =  repository.findAll();
+        Iterable<Email> emailIterable =  repositorio.findAll();
         List<Email> emails = new ArrayList<>();
         emailIterable.forEach(emails::add);
         return emails;
     }
 
     public void deletarEmail(Long id){
-        repository.deleteById(id);
+        repositorio.deleteById(id);
     }
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -22,7 +21,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErroDeFormularioDto>  handleGlobalException(MethodArgumentNotValidException exception) {
+    public List<ErroDeFormularioDto> handleGlobalException(MethodArgumentNotValidException exception) {
 
         List<ErroDeFormularioDto> dto = new ArrayList<>();
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
@@ -33,5 +32,18 @@ public class GlobalExceptionHandler {
             dto.add(erro);
         });
         return dto;
+    }
+
+    @ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ResponseError handleGeneralException(Exception exception) {
+        ResponseError responseError;
+
+        responseError = ResponseError.builder()
+                .timestamp(String.valueOf(LocalTime.now()))
+                .status(Integer.toString(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+                .error(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .message(exception.getMessage()).build();
+        return responseError;
     }
 }
